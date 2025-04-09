@@ -1,0 +1,6 @@
+/.dockerignore
+/.DS_Store
+/.git
+/build
+/Dockerfile
+/node_modules

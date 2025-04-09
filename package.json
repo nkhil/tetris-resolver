@@ -1,0 +1,35 @@
+{
+  "name": "tetris-resolver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "^23.11.0",
+    "npm": "^11"
+  },
+  "volta": {
+    "node": "23.11.0",
+    "npm": "11.3.0"
+  },
+  "scripts": {
+    "test": "ava",
+    "build": "npm run build:ts",
+    "build:ts": "npm run -s clean && tsc",
+    "build:watch": "npm run build:ts -- --watch",
+    "clean": "rm -rf build/*",
+    "process": "npm run build && node build/input-parser.js games.txt",
+    "docker:build": "docker build -t tetris-solver .",
+    "docker:run": "docker run --rm -v $(pwd):/app tetris-solver games.txt",
+    "docker:run:file": "docker run --rm -v $(pwd):/app tetris-solver",
+    "process:docker": "npm run docker:build && npm run docker:run"
+  },
+  "author": "Nikhil Vijayan <nkhil@pm.me>",
+  "license": "ISC",
+  "devDependencies": {
+    "@sindresorhus/tsconfig": "^6.0.0",
+    "ava": "^6.2.0",
+    "@types/node": "^22.7.2",
+    "typescript": "^5.3.3"
+  }
+}
