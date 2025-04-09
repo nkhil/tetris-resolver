@@ -23,7 +23,6 @@
     "process": "npm run build && node build/input-parser.js games.txt",
     "docker:build": "docker build -t tetris-solver .",
     "docker:run": "docker run --rm -v $(pwd):/app tetris-solver games.txt",
-    "docker:run:file": "docker run --rm -v $(pwd):/app tetris-solver",
     "process:docker": "npm run docker:build && npm run docker:run"
   },
   "author": "Nikhil Vijayan <nkhil@pm.me>",

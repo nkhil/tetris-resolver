@@ -27,6 +27,7 @@ export default [
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-process-exit': 'off',
       'unicorn/no-new-array': 'off',
+      'unicorn/no-array-reduce': 'off',
     },
   },
 ];

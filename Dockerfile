@@ -27,10 +27,6 @@ RUN npm run build
 ##
 FROM node:23.11.0-slim
 
-# Create a non-root user (same as original)
-RUN useradd --create-home --shell /bin/bash node \
-  && npm install --global npm@10.8.2
-
 WORKDIR /app
 
 # Copy only the built output and required files

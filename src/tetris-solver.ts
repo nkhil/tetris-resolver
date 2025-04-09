@@ -1,4 +1,3 @@
-
 const DEFAULT_WIDTH = 10
 const DEFAULT_HEIGHT = 100
 
@@ -16,7 +15,7 @@ export type Shape = keyof typeof Shapes
 
 export type Move = [Shape, number]
 
-export type TetrisGameArgs = {
+export type TetrisSolverArgs = {
   height?: number
   width?: number
 }
@@ -35,7 +34,7 @@ export class TetrisSolver {
   #gridHeight: number
   #gridWidth: number
 
-  constructor(args: TetrisGameArgs = {}) {
+  constructor(args: TetrisSolverArgs = {}) {
     const height = args.height ?? DEFAULT_HEIGHT
     const width = args.width ?? DEFAULT_WIDTH
 
@@ -49,6 +48,10 @@ export class TetrisSolver {
   }
 
   processMoves(moves: Array<Move>): number {
+    if (moves.length === 0) {
+      return 0
+    }
+
     for (const move of moves) {
       const [shape, xCoordinate] = move
       this.#dropPiece(shape, xCoordinate)
@@ -94,7 +97,6 @@ export class TetrisSolver {
      */
     if (yCoordinate < 0) return
 
-
     this.#placeShape(shape, xCoordinate, yCoordinate)
 
     /** Clear any full rows */
@@ -122,18 +124,27 @@ export class TetrisSolver {
   #placeShape(shape: Shape, xOffset: number, yOffset: number): void {
     const shapeDimensions = this.#shapeDimensions[shape]
 
-    for (const [dx, dy] of shapeDimensions) {
+    const newGrid = shapeDimensions.reduce((newGrid, [dx, dy]) => {
       const x = xOffset + dx
       const y = yOffset + dy
-      this.#grid[y][x] = 1
-    }
+
+      const row = [...newGrid[y]]
+      row[x] = 1;
+
+      const updatedGrid = [...newGrid]
+      updatedGrid[y] = row
+
+      return updatedGrid
+    }, this.#grid)
+
+    this.#grid = newGrid
   }
 
   #clearFullRows(): void {
     const nonFullRows = this.#grid.filter(row => !row.every(cell => cell === 1))
+    const noFullRowsToClear = nonFullRows.length === this.#gridHeight
 
-    if (nonFullRows.length === this.#gridHeight) {
-      /** Return early if there are no full rows to clear */
+    if (noFullRowsToClear) {
       return
     }
 
