@@ -1,12 +1,12 @@
-import * as fs from 'fs'
-import * as path from 'path'
-import process from 'process'
+import * as fs from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 
 import { TetrisSolver } from './tetris-solver.js'
 import { parseLineToMoves } from './helpers/parse-line-to-moves.js'
 
 function processGamesFile(filePath: string): void {
-  const file = fs.readFileSync(path.resolve(filePath), 'utf-8')
+  const file = fs.readFileSync(path.resolve(filePath), 'utf8')
   const lines = file.trim().split('\n')
 
   for (const line of lines) {
@@ -17,11 +17,11 @@ function processGamesFile(filePath: string): void {
   }
 }
 
-const fileArg = process.argv[2]
+const fileArgument = process.argv[2]
 
-if (!fileArg) {
+if (!fileArgument) {
   console.error('Please provide a file path as argument.')
   process.exit(1)
 }
 
-processGamesFile(fileArg)
+processGamesFile(fileArgument)

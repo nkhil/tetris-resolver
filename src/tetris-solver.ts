@@ -22,7 +22,7 @@ export type TetrisGameArgs = {
 }
 
 export class TetrisSolver {
-  #shapeDimensions: Record<Shape, Array<[number, number]>> = {
+  readonly #shapeDimensions: Record<Shape, Array<[number, number]>> = {
     [Shapes.O]: [[0, 0], [1, 0], [0, 1], [1, 1]],
     [Shapes.I]: [[0, 0], [0, 1], [0, 2], [0, 3]],
     [Shapes.T]: [[0, 0], [1, 0], [2, 0], [1, 1]],
@@ -60,7 +60,7 @@ export class TetrisSolver {
     let count = 0
 
     for (let row = this.#gridHeight - 1; row >= 0; row--) {
-      const hasBlock = this.#grid[row].some(cell => cell === 1)
+      const hasBlock = this.#grid[row].includes(1)
 
       if (hasBlock) {
         count++
@@ -70,7 +70,7 @@ export class TetrisSolver {
     return count
   }
 
-  #dropPiece(shape: Shape, xCoordinate: number) {
+  #dropPiece(shape: Shape, xCoordinate: number): void {
     let yCoordinate = 0
     while (this.#canPlaceShapeAt(shape, xCoordinate, yCoordinate)) {
       /**
@@ -122,11 +122,11 @@ export class TetrisSolver {
   #placeShape(shape: Shape, xOffset: number, yOffset: number): void {
     const shapeDimensions = this.#shapeDimensions[shape]
 
-    shapeDimensions.forEach(([dx, dy]) => {
+    for (const [dx, dy] of shapeDimensions) {
       const x = xOffset + dx
       const y = yOffset + dy
       this.#grid[y][x] = 1
-    })
+    }
   }
 
   #clearFullRows(): void {
@@ -138,7 +138,7 @@ export class TetrisSolver {
     }
 
     const fullRowCount = this.#gridHeight - nonFullRows.length
-    const blankGridRows = Array.from({ length: fullRowCount }, () => Array(this.#gridWidth).fill(0))
+    const blankGridRows = Array.from({ length: fullRowCount }, () => new Array(this.#gridWidth).fill(0))
 
     this.#grid = [...blankGridRows, ...nonFullRows]
   }
@@ -149,6 +149,6 @@ export class TetrisSolver {
   }
 
   private createGrid({ height, width }: { height: number, width: number }): number[][] {
-    return Array.from({ length: height }, () => Array(width).fill(0));
+    return Array.from({ length: height }, () => new Array(width).fill(0));
   }
 }

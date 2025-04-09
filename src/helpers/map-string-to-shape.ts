@@ -5,21 +5,29 @@ import type { Shape } from '../tetris-solver.js'
 
 export function mapStringToShape(shape: string): Shape {
   switch (shape) {
-    case 'O':
+    case 'O': {
       return Shapes.O
-    case 'I':
+    }
+    case 'I': {
       return Shapes.I
-    case 'S':
+    }
+    case 'S': {
       return Shapes.S
-    case 'Z':
+    }
+    case 'Z': {
       return Shapes.Z
-    case 'L':
+    }
+    case 'L': {
       return Shapes.L
-    case 'J':
+    }
+    case 'J': {
       return Shapes.J
-    case 'T':
+    }
+    case 'T': {
       return Shapes.T
-    default:
+    }
+    default: {
       never(`Invalid shape: ${shape} encountered`)
+    }
   }
 }

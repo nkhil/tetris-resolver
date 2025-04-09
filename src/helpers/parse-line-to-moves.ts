@@ -9,7 +9,7 @@ export function parseLineToMoves(line: string): Move[] {
     .filter(Boolean)
     .map(token => {
       const shape = mapStringToShape(token[0])
-      const x = parseInt(token.slice(1), 10)
+      const x = Number.parseInt(token.slice(1), 10)
 
       if (Number.isNaN(x)) {
         never(`Invalid x coordinate: ${token.slice(1)}`)
