@@ -66,7 +66,7 @@ The `process:docker` command uses the supplied `games.txt` on the host machine. 
 
 ## Further considerations
 
-I believe the current state of the project is feature complete in line with the requirements listed in `dfns_code_exercise.pdf`.
+I believe the current state of the project is feature complete in line with the requirements listed in `requirements.pdf`.
 
 As requested, I have avoided any external dependencies, and this program only uses the Node standard library at runtime. The dev dependencies I've used have been for linting, testing, and compiling the Typescript code.
 
