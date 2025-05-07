@@ -3,6 +3,8 @@
 
 Tetris solver is a [Tetris](https://en.wikipedia.org/wiki/Tetris) game resolver built using Node.js.
 
+See `requirements.pdf` for the full list of requirements.
+
 ## Built using
 
 This project has been buils using:
